@@ -8,6 +8,24 @@
         <link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css">
         <link rel="stylesheet" href="style.css">
     </head>
+
+    <body> 
+        <div class="body">
+            <div class="card">
+            <h3><span class="badge secondary">z-Note</span></h3>
+            </div>
+            
+            <div class="card" >
+                <div class="card-body">
+                    <p class="card-text" id="notes" contenteditable onended="saveFile()"></p>
+                    <button class="btn-success" onclick="saveFile()">Save</button> 
+                    <!-- <button class="btn-secondary">Download</button> -->
+                    <div style="margin-top: 1rem" id="status"></div>
+                </div>
+            </div>
+        </div>
+    </body>
+
     <script src="https://unpkg.com/filer/dist/filer.min.js"></script>
     
     <script>
@@ -62,23 +80,5 @@
         // }
     </script>
 
-    <body> 
-        <div class="body">
-            <div class="card">
-            <h3><span class="badge secondary">z-Note</span></h3>
-            </div>
-            
-            <div class="card" >
-                <div class="card-body">
-                    <p class="card-text" id="notes" contenteditable onended="saveFile()"></p>
-                    <button class="btn-success" onclick="saveFile()">Save</button> 
-                    <button class="btn-secondary">Download</button>
-                    <div style="margin-top: 1rem" id="status"></div>
-                </div>
-            </div>
-        
-            
-        </div>
-        
-    </body>
+   
 </html>
