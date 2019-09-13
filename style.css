@@ -1,0 +1,25 @@
+body {
+    margin-left: 2rem;
+}
+
+
+h3 {
+    text-align: left;
+    margin: 1rem;
+    font-family: 'Special Elite', cursive;
+}
+
+.note {
+    font-family: 'Special Elite', cursive;
+    font-size: 14pt;
+    min-height: 300pt;
+}
+
+.card {
+    width: 15rem;
+    margin: 1rem;
+}
+
+.card-text {
+    min-height: 10rem;
+}

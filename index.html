@@ -4,37 +4,81 @@
         <meta charset="utf-8">
         <title>z-Note</title>
         <meta name="author" content="Ilya Zhuravlev">
+        <link href="https://fonts.googleapis.com/css?family=Special+Elite&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css">
+        <link rel="stylesheet" href="style.css">
     </head>
+    <script src="https://unpkg.com/filer/dist/filer.min.js"></script>
+    
+    <script>
+        // Filer - javascript file system library
+        const fs = new Filer.FileSystem();
+        // const FileSaver = require('file-saver');
 
-    <body>
-        <h1>Welcome to z-Note!</h1>
-        <div id="notepad" contenteditable></div>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            console.log('DOM fully loaded and parsed');
 
-        <script src="https://unpkg.com/filer/dist/filer.min.js"></script>
-
-        <script>
-
-            const fs = new Filer.FileSystem();
-            document.addEventListener('DOMContentLoaded', (event) => {
-                console.log('DOM fully loaded and parsed');
-                fs.readFile('/note', 'utf8', function(err, data) {
-                if (err) 
-                    data = "Start making notes here: ";
-
-                setInterval(1);
-                
-                document.querySelector('#notepad').innerHTML = data;
-                });
-            });
-
-            var saveFile = function(){
-                fs.writeFile('/note', document.querySelector('#notepad').innerHTML, function(err) {
-                    if (err) throw err;
-                });
+            // getting the note data from the /notes file
+            fs.readFile('/notes', 'utf8', function(err, data) {
+            if (err) {
+                data = "Write on me!"
             }
-            
-            var interval = window.setInterval(saveFile, 1000);
 
-        </script>
+            //inserting the data into the according container
+            document.getElementById("notes").innerHTML = data;
+            });
+        });
+
+        // saveFile function that writes the note to the file
+        function saveFile(){
+            // changing status container data
+            document.getElementById("status").innerHTML = '<p class="text-secondary">Saving...</p>';
+            // for UI purposes
+            setTimeout(write, 750);
+        }
+
+        // records the data into the file
+        function write() {
+            fs.writeFile('/notes', document.getElementById("notes").innerHTML, function(err) {
+                if (err) {
+                    // error status
+                    document.getElementById("status").innerHTML = '<p class="text-danger">An error occured, please try again.</p>';
+                    throw err;
+                } 
+                else {
+                    //success status
+                    document.getElementById("status").innerHTML = '<p class="text-success">Note Saved!</p>';
+                }
+            });
+        }
+
+        // function download() {
+        //     fs.writeFile('/notes', document.getElementById("notes").innerHTML, function(err) {
+        //         if (err)
+        //             throw err;
+        //     });
+        //     var file = new Blob([document.getElementById("notes").innerHTML], {type: "text/plain;charset=utf-8"});
+        //     FileSaver.saveAs(blob, "z-note.txt");
+        // }
+    </script>
+
+    <body> 
+        <div class="body">
+            <div class="card">
+            <h3><span class="badge secondary">z-Note</span></h3>
+            </div>
+            
+            <div class="card" >
+                <div class="card-body">
+                    <p class="card-text" id="notes" contenteditable onended="saveFile()"></p>
+                    <button class="btn-success" onclick="saveFile()">Save</button> 
+                    <button class="btn-secondary">Download</button>
+                    <div style="margin-top: 1rem" id="status"></div>
+                </div>
+            </div>
+        
+            
+        </div>
+        
     </body>
 </html>
