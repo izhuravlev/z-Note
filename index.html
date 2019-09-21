@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <p class="card-text" id="notes" contenteditable onended="saveFile()"></p>
                     <button class="btn-success" onclick="saveFile()">Save</button> 
-                    <!-- <button class="btn-secondary">Download</button> -->
+                    <button class="btn-secondary" onclick="downloadPDF()" >Download PDF</button> -->
                     <div style="margin-top: 1rem" id="status"></div>
                 </div>
             </div>
@@ -27,7 +27,8 @@
     </body>
 
     <script src="https://unpkg.com/filer/dist/filer.min.js"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+
     <script>
         // Filer - javascript file system library
         const fs = new Filer.FileSystem();
@@ -69,7 +70,15 @@
                 }
             });
         }
-
+        function downloadPDF() {
+          var doc = new jsPDF();
+          var textToPrint = `
+              z-Note: ${document.getElementById("notes").innerText} \n
+              ~
+              `;
+          doc.text(textToPrint, 10, 10);
+          doc.save('zNote.pdf')
+        }
         // function download() {
         //     fs.writeFile('/notes', document.getElementById("notes").innerHTML, function(err) {
         //         if (err)
