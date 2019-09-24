@@ -1,4 +1,9 @@
 body {
+    background-image: url("background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
     margin-left: 2rem;
 }
 
@@ -17,6 +22,7 @@ h3 {
 .card {
     width: 15rem;
     margin: 1rem;
+    background-color: white;
 }
 
 .card-text {
